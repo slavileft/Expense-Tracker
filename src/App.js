@@ -1,17 +1,16 @@
-import { NavigationContext } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { Text, View } from 'react-native';
+import MainTabs from './navigation/MainTabs';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  return (
-    <>
-      <StatusBar style="auto" />
-      <NavigationContext>
-        <View >
-          <Text>Expense Tracker</Text>
-        </View>
-      </NavigationContext>
-    </>
-  );
+    return (
+        <SafeAreaProvider>
+            <StatusBar style="auto" />
+            <NavigationContainer>
+                <MainTabs />
+            </NavigationContainer>
+        </SafeAreaProvider>
+    );
 }
 
