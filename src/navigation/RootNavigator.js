@@ -3,7 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { LoadingView } from '../components/StateViews';
 import AuthStack from './AuthStack';
 import MainTabs from './MainTabs';
-import { colors } from '../constants/theme';
+import { colors } from '../theme';
+import { useAuth } from '../context/AuthContext';
 
 const RootStack = createNativeStackNavigator();
 
@@ -13,8 +14,7 @@ const theme = {
 };
 
 export default function RootNavigator() {
-    const isLoading = false;
-    const session = false;
+  const { session, isLoading } = useAuth();
 
   // While we check for a saved session at app start
   if (isLoading) {

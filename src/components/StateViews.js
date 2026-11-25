@@ -1,5 +1,5 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
-import { colors } from '../constants/theme';
+import { colors } from '../theme';
 
 // Shown while data is loading
 export function LoadingView() {

@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import DashboardScreen from '../screens/DashboardScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ExpensesStack from './ExpensesStack';
-import { colors } from '../constants/theme';
+import { colors } from '../theme';
 
 const Tab = createBottomTabNavigator();
 
