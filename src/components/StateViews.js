@@ -1,4 +1,5 @@
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import PrimaryButton from './PrimaryButton';
 import { colors } from '../theme';
 
 // Shown while data is loading
@@ -6,6 +7,26 @@ export function LoadingView() {
   return (
     <View style={styles.center}>
       <ActivityIndicator size="large" color={colors.primary} />
+    </View>
+  );
+}
+
+// Shown when a request failed.
+export function ErrorView({ message, onRetry }) {
+  return (
+    <View style={styles.center}>
+      <Text style={styles.errorTitle}>Oops!</Text>
+      <Text style={styles.message}>{message}</Text>
+      <PrimaryButton title="Try again" onPress={onRetry} style={styles.button} />
+    </View>
+  );
+}
+
+// Shown when there is nothing to display
+export function EmptyView({ message }) {
+  return (
+    <View style={styles.center}>
+      <Text style={styles.message}>{message}</Text>
     </View>
   );
 }
