@@ -1,18 +1,27 @@
+import { File } from 'expo-file-system';
 import { SUPABASE_URL } from '../config';
 import { getHeaders } from './api';
 
-export async function uploadReceipt(localUri, userId) {
-  const fileResponse = await fetch(localUri);
-  const blob = await fileResponse.blob();
+function getContentType(uri) {
+  const extension = uri.split('.').pop().toLowerCase();
+  if (extension === 'png') return { contentType: 'image/png', extension: 'png' };
+  if (extension === 'webp') return { contentType: 'image/webp', extension: 'webp' };
+  return { contentType: 'image/jpeg', extension: 'jpg' };
+}
 
-  const contentType = blob.type || 'image/jpeg';
-  const extension = contentType.split('/')[1] || 'jpg';
+export async function uploadReceipt(localUri, userId) {
+  const photoBytes = await new File(localUri).arrayBuffer();
+  if (photoBytes.byteLength === 0) {
+    throw new Error('Could not read the photo. Please choose it again.');
+  }
+
+  const { contentType, extension } = getContentType(localUri);
   const path = `${userId}/${Date.now()}.${extension}`;
 
   const response = await fetch(`${SUPABASE_URL}/storage/v1/object/receipts/${path}`, {
     method: 'POST',
     headers: getHeaders({ 'Content-Type': contentType }),
-    body: blob,
+    body: photoBytes,
   });
 
   if (!response.ok) {
